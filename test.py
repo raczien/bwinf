@@ -1,18 +1,19 @@
-def balanceable_rec(L, R, weights):
-    print("L =", L, "  R =", R, "  weights =", weights)
+def subset_sum(numbers, target, partial=[]):
+    s = sum(partial)
 
-    if L == 0 or L == R or L in weights:
-        return True
+    # check if the partial sum is equals to target
+    if s == target:
+        print("sum(%s)=%s" % (partial, target))
+    if s >= target:
+        return  # if we reach the number why bother to continue
 
-    if len(weights) == 0:
-        return False
+    for i in range(len(numbers)):
+        n = numbers[i]
+        remaining = numbers[i+1:]
+        subset_sum(remaining, target, partial + [n])
 
-    w = weights.pop(0)
-    if balanceable_rec(L + w, R, weights[:]):
-        return True
-    if balanceable_rec(L, R, weights[:]):
-        return True
-    if balanceable_rec(L, R + w, weights[:]):
-        return True
 
-    return False
+if __name__ == "__main__":
+    i = 1
+    for i in range(1, 25):
+        subset_sum([3, 9, 8, 4, 5, 7, 10], i)
