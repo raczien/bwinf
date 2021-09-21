@@ -1,12 +1,11 @@
 def subset_sum(numbers, target, partial=[]):
     s = sum(partial)
-
+    #print(partial, target)
     # check if the partial sum is equals to target
     if s == target:
         print("sum(%s)=%s" % (partial, target))
     if s >= target:
         return  # if we reach the number why bother to continue
-
     for i in range(len(numbers)):
         n = numbers[i]
         remaining = numbers[i+1:]
@@ -14,6 +13,7 @@ def subset_sum(numbers, target, partial=[]):
 
 
 if __name__ == "__main__":
-    i = 1
-    for i in range(1, 25):
-        subset_sum([3, 9, 8, 4, 5, 7, 10], i)
+    k = 110
+    #for k in range(1, 110):
+    subset_sum([10, 10, 10, 50, 50, 100, 100, 100, 500, 500, 500, 1000, 1000, 1000, 5000], k)
+
