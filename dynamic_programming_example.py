@@ -30,10 +30,12 @@ def better_fib(n, memo):
 
 x = 39
 start_time = time.time()
+print("Bad Function: ")
 print(fib(x))
-print("Program took ", time.time() - start_time, " to run.")
+print("Program took ", time.time() - start_time, " to run.\n")
 
 start_time2 = time.time()
+print("Optimized with memoization:")
 memo = [None] * (x+1)
 print(better_fib(x, memo))
 print("Program took ", time.time() - start_time2, " to run.")
