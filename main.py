@@ -1,31 +1,37 @@
-n = 6
-w = [10, 50, 100, 500, 1000, 5000]
-n_w = [3, 2, 3, 3, 3, 1]
-arr = [10, 10, 10, 50, 50, 100, 100, 100, 500, 500, 500, 1000, 1000, 1000, 5000]
+import time
+
+import marktwaage
+from Weights import Weights
 
 
-def test():
-    i = 10
-    while i <= 500:
-        c = min(w, key=lambda x: abs(x-i))
-        #print(c)
-        if i in arr or (i % c <= n_w[w.index(c)]):
-            print("Element: ", i, "(c = ", c, ")")
-        else:
-            print(i)
-            closest = min(w, key=lambda x: abs(x-i))
-            #check(closest, i)
-
-        i += 10
-
-
-def check(c, i):
-    print(c, " - ", i)
-    print(w.index(c))
-    if (i % min(w, key=lambda x: abs(x-i)) <= n_w[w.index(c)]):
-        print("NICE", c, " MIT ", i, "*********************")
-    a = 1
+def fill_variables(name):
+    n = None
+    w = []
+    a = []
+    with open(name, "r") as file:
+        lines = file.read().splitlines()
+        for i, element in enumerate(lines):
+            if i == 0:
+                n = element
+            else:
+                v = list(map(int, element.split()))
+                w.append(v[0])
+                a.append(v[1])
+    return n, w, a
 
 
 if __name__ == '__main__':
-    test()
+    start_time = time.time()
+    filename = "gewichte/gewichtsstuecke0.txt"
+    distinct_weights, weights, amount = fill_variables(filename)
+    w = Weights(distinct_weights, weights, amount)
+    w.create_weight_array()
+
+    print("Unique weights: {}\n"
+          "Distinct weights: {}\n"
+          "Amount: {}\n"
+          "All weights: {}"
+          .format(w.unique_weights, w.weights, w.amount, w.all_weights))
+    marktwaage.calculate(w)
+
+    print("Program took ", time.time() - start_time, " to run.")
