@@ -22,7 +22,7 @@ def fill_variables(name):
 
 if __name__ == '__main__':
     start_time = time.time()
-    filename = "gewichte/gewichtsstuecke0.txt"
+    filename = "gewichte/gewichtsstuecke2.txt"
     distinct_weights, weights, amount = fill_variables(filename)
     w = Weights(distinct_weights, weights, amount)
     w.create_weight_array()
@@ -30,8 +30,9 @@ if __name__ == '__main__':
     print("Unique weights: {}\n"
           "Distinct weights: {}\n"
           "Amount: {}\n"
-          "All weights: {}"
+          "All weights: {}\n"
           .format(w.unique_weights, w.weights, w.amount, w.all_weights))
+
     marktwaage.calculate(w)
 
     print("Program took ", time.time() - start_time, " to run.")

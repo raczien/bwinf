@@ -1,5 +1,3 @@
-import time
-
 
 def print_subset_sum(w, s, m):
     subset = []
@@ -21,7 +19,7 @@ def calculate_sub_sums(weights, i, sum, memo):
     return memo[(i, sum)]
 
 
-def weight_balance(arr, wanted, m):
+def weight_balance(arr):
     counter = 0
     for i in range(len(arr)):
         temp = arr.copy()
@@ -29,20 +27,8 @@ def weight_balance(arr, wanted, m):
         for k in range(len(arr)):
             temp[k] *= -1
             print(temp)
-            calculate_sub_sums(temp, 0, wanted, m)
             counter += 1
     print(counter)
-
-
-if __name__ == '__main__':
-    x1 = [10, 10, 10, 50, 50, 100, 100, 100, 500, 500, 500, 1000, 1000, 1000, 5000]
-    y = 40
-    z = dict()
-    calculate_sub_sums(x1, 0, y, z)
-    print(print_subset_sum(x1, y, z), " for: ", y)
-    print(z)
-    print(len(z))
-    print(weight_balance(x1, y, z))
 
 
 def calculate(weight_object):
@@ -50,12 +36,28 @@ def calculate(weight_object):
     wanted = 10
     memo = dict()
     none = []
-    while wanted <= 10000: #TODO: hier irgendwie balance reinbringen
+    while wanted <= 10000:
+        breaker = False
         if calculate_sub_sums(weight_object.all_weights, 0, wanted, memo) == 0:
-            none.append(wanted)
+            inverse_memo = dict()
+            counter = 0
+            for i in range(len(weights)):
+                temp = weights.copy()
+                temp[i] *= -1
+                for k in range(len(weights)):
+                    temp[k] *= -1
+                    if print_subset_sum(temp, wanted, inverse_memo):
+                        print(print_subset_sum(temp, wanted, inverse_memo), " for: ", wanted)
+                        breaker = True
+                        break
+                    counter += 1
+                if breaker:
+                    break
+            if not breaker:
+                none.append(wanted)
         else:
             print(print_subset_sum(weights, wanted, memo), " for: ", wanted)
         wanted += 10
 
     print("No Sum for: ", none)
-    print("Ammount: ", len(none))
+    print("Amount: ", len(none))

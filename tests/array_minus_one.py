@@ -11,9 +11,24 @@ def weight_balance(arr):
             print()
     print(counter)
 
+
+def test(arr):
+    c = 0
+    for i, k in weight_balance(len(arr)):
+
+        temp = arr.copy()
+        temp[i] *= -1
+        temp[k] *= -1
+        print(temp)
+        c += 1
+    print(c)
+
+
+
 if __name__ == '__main__':
     x = [10, 10, 50, 80, 80, 100, 130, 160, 170, 250, 300]
     #weight_balance(x)
+    test(x)
 
 '''
             Gesucht: 30
