@@ -1,6 +1,7 @@
 import time
 
-
+# set = [10, 50, 100, 100, 100, 500, 500, 500, 1000, 1000, 1000, 5000]
+# 150
 def subsetsum(array, num, memo):
     if num == 0 or num < 1 or len(array) == 0:
         return None
@@ -12,8 +13,6 @@ def subsetsum(array, num, memo):
 
         else:
             new_start = subsetsum(array[1:], (num - array[0]), memo)
-            #if new_start is not None:
-                #print("S: ", new_start)
             if new_start:
                 result = [array[0]] + new_start
                 return result
@@ -24,8 +23,7 @@ def subsetsum(array, num, memo):
 
 memo = dict()
 start_time = time.time()
-set = [-10, 10, 10, 50, 50, 100, 100, 100, 500, 500, 500, 1000, 1000, 1000, 5000]
-#set = [11, 99480, 99511, 299836, 299836, 599761, 4497786, 4497786, 4497786, 1499171, 10499654, 10499654, 10499654, 41999427, 94499810, 94499810, 94499810, 283501867, 661499326, 661499326, 661499326, 1984505261]
+set = sorted([-10, 10, 10, 50, 50, -100, 100, 100, 500, 500, 500, 1000, 1000, 1000, 5000])
 i = 10
 none = []
 
