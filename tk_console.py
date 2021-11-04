@@ -51,7 +51,6 @@ class GUI():
             s.start(self.variable.get())
 
     def changepermute_boolean(self):
-        #self.console.clear_console()
         if const.search_for_missing_with_permutation:
             const.search_for_missing_with_permutation = False
             self.find_missing_button.configure(bg="red", text="False")

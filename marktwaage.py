@@ -10,18 +10,18 @@ def get_subset_sum(w, s, m):
     return subset
 
 
-def calculate_sub_sums(weights, i, sum, memo):
-    if i >= len(weights):
+def calculate_sub_sums(weights, index, sum, memo):
+    if index >= len(weights):
         return 1 if sum == 0 else 0
 
-    if (i, sum) not in memo:
-        count = calculate_sub_sums(weights, i + 1, sum, memo)
-        count += calculate_sub_sums(weights, i + 1, sum - weights[i], memo)
-        memo[(i, sum)] = count
-    return memo[(i, sum)]
+    if (index, sum) not in memo:
+        count = calculate_sub_sums(weights, index + 1, sum, memo)
+        count += calculate_sub_sums(weights, index + 1, sum - weights[index], memo)
+        memo[(index, sum)] = count
+    return memo[(index, sum)]
 
 
-def get_blanks(num):
+def get_blanks_for_pretty_print(num):
     if num < 10:
         return "    :"
     elif num < 100:
@@ -57,7 +57,6 @@ def calculate(weight_object):
             found_values.append(k)
 
     if const.search_for_missing_with_permutation:
-
         if value_missing:
             for value in not_found_values:
                 breaker = False
@@ -81,12 +80,10 @@ def calculate(weight_object):
     wanted_weight = 10
     while wanted_weight <= 10000:
         if wanted_weight in missing_dict:
-            print(wanted_weight, get_blanks(wanted_weight), missing_dict[wanted_weight])
+            print(wanted_weight, get_blanks_for_pretty_print(wanted_weight), missing_dict[wanted_weight])
         elif not get_subset_sum(weights, wanted_weight, memo):
-            print(wanted_weight, get_blanks(wanted_weight), "No value found. Closest value: ", closest_number(found_values, wanted_weight))
+            print(wanted_weight, get_blanks_for_pretty_print(wanted_weight), "No value found. Closest value: ", closest_number(found_values, wanted_weight))
         else:
-            print(wanted_weight, get_blanks(wanted_weight), get_subset_sum(weights, wanted_weight, memo))
+            print(wanted_weight, get_blanks_for_pretty_print(wanted_weight), get_subset_sum(weights, wanted_weight, memo))
         wanted_weight += 10
-
-
 

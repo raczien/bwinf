@@ -25,7 +25,7 @@ def fill_variables(name):
 
 def start(filename):
     start_time = time.time()
-    print(filename)
+    print("File: ", filename)
     filename = "gewichte/"+str(filename)
     distinct_weights, weights, amount = fill_variables(filename)
     w = Weights(distinct_weights, weights, amount)
