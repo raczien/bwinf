@@ -21,6 +21,17 @@ def calculate_sub_sums(weights, i, sum, memo):
     return memo[(i, sum)]
 
 
+def get_blanks(num):
+    if num < 10:
+        return "    :"
+    elif num < 100:
+        return "   :"
+    elif num < 1000:
+        return "  :"
+    else:
+        return " :"
+
+
 def calculate(weight_object):
     weights = weight_object.all_weights
     wanted = 10
@@ -63,10 +74,12 @@ def calculate(weight_object):
     wanted_weight = 10
     while wanted_weight <= 10000:
         if wanted_weight in missing_dict:
-            print(missing_dict[wanted_weight], " for: ", wanted_weight)
+            print(wanted_weight, get_blanks(wanted_weight), missing_dict[wanted_weight]) ##print(missing_dict[wanted_weight], " for: ", wanted_weight)
         else:
-            print(get_subset_sum(weights, wanted_weight, memo), " for: ", wanted_weight)
+            print(wanted_weight, get_blanks(wanted_weight), get_subset_sum(weights, wanted_weight, memo))  ##print(get_subset_sum(weights, wanted_weight, memo), " for: ", wanted_weight)
         wanted_weight += 10
 
     print("No Sum for: ", not_found_values)
     print("Amount: ", len(not_found_values))
+
+
