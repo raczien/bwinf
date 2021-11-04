@@ -42,6 +42,7 @@ class GUI():
         with redirect_stdout(self.console):
             print("Bitte links ein Textdokument auswählen.")
             print("True/False Taste ändert den Ausgleich der Waage, inden Gewichte auf die andere Seite gestellt werden.")
+            print("Negative Zahlen müssen auf die Linke Seite zu dem zu errechnenden Gewicht gepackt werden, positive auf die andere.")
 
         self.root.mainloop()
 

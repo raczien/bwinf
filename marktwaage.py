@@ -32,11 +32,16 @@ def get_blanks(num):
         return " :"
 
 
+def closest_number(lst, num):
+    return lst[min(range(len(lst)), key=lambda i: abs(lst[i]-num))]
+
+
 def calculate(weight_object):
     weights = weight_object.all_weights
     wanted = 10
     memo = dict()
     not_found_values = []
+    found_values = []
     while wanted <= 10000:
         if calculate_sub_sums(weight_object.all_weights, 0, wanted, memo) == 0:
             not_found_values.append(wanted)
@@ -44,12 +49,14 @@ def calculate(weight_object):
 
     missing_dict = dict()
 
+    value_missing = False
+    for k in range(10, 10000, 10):
+        if not get_subset_sum(weights, k, memo):
+            value_missing = True
+        else:
+            found_values.append(k)
+
     if const.search_for_missing_with_permutation:
-        value_missing = False
-        for k in range(10, 10000, 10):
-            if not get_subset_sum(weights, k, memo):
-                value_missing = True
-                break
 
         if value_missing:
             for value in not_found_values:
@@ -74,12 +81,12 @@ def calculate(weight_object):
     wanted_weight = 10
     while wanted_weight <= 10000:
         if wanted_weight in missing_dict:
-            print(wanted_weight, get_blanks(wanted_weight), missing_dict[wanted_weight]) ##print(missing_dict[wanted_weight], " for: ", wanted_weight)
+            print(wanted_weight, get_blanks(wanted_weight), missing_dict[wanted_weight])
+        elif not get_subset_sum(weights, wanted_weight, memo):
+            print(wanted_weight, get_blanks(wanted_weight), "No value found. Closest value: ", closest_number(found_values, wanted_weight))
         else:
-            print(wanted_weight, get_blanks(wanted_weight), get_subset_sum(weights, wanted_weight, memo))  ##print(get_subset_sum(weights, wanted_weight, memo), " for: ", wanted_weight)
+            print(wanted_weight, get_blanks(wanted_weight), get_subset_sum(weights, wanted_weight, memo))
         wanted_weight += 10
 
-    print("No Sum for: ", not_found_values)
-    print("Amount: ", len(not_found_values))
 
 
