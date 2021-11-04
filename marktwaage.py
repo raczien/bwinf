@@ -5,6 +5,7 @@ def get_subset_sum(w, s, m):
     subset = []
     for i, x in enumerate(w):
         if calculate_sub_sums(w, i + 1, s - x, m) > 0:
+            # erights, 1, 3650-50
             subset.append(x)
             s -= x
     return subset
@@ -76,6 +77,7 @@ def calculate(weight_object):
         for missing in missing_dict:
             if missing in not_found_values:
                 not_found_values.remove(missing)
+                found_values.append(missing)
 
     wanted_weight = 10
     while wanted_weight <= 10000:
