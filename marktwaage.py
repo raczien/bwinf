@@ -1,16 +1,17 @@
 import initial_constants as const
 
 
+# read values from the dictionary and returns the subset that sums up to the given number (for console output)
 def get_subset_sum(w, s, m):
     subset = []
     for i, x in enumerate(w):
         if calculate_sub_sums(w, i + 1, s - x, m) > 0:
-            # erights, 1, 3650-50
             subset.append(x)
             s -= x
     return subset
 
 
+# calculates all possible calculations (permutations) from an array and saves all distinct calculations to a dictionary
 def calculate_sub_sums(weights, index, sum, memo):
     if index >= len(weights):
         return 1 if sum == 0 else 0
@@ -22,6 +23,7 @@ def calculate_sub_sums(weights, index, sum, memo):
     return memo[(index, sum)]
 
 
+# for beautified console printing - returns a substring with specific amount of blanks
 def get_blanks_for_pretty_print(num):
     if num < 10:
         return "    :"
@@ -33,10 +35,12 @@ def get_blanks_for_pretty_print(num):
         return " :"
 
 
+# returns the closest value given in a dictionary compared to a given number
 def closest_number(lst, num):
     return lst[min(range(len(lst)), key=lambda i: abs(lst[i]-num))]
 
 
+# dynamic algorithm for the "Subset Sum - Problem"
 def calculate(weight_object):
     weights = weight_object.all_weights
     wanted = 10
@@ -50,6 +54,7 @@ def calculate(weight_object):
 
     missing_dict = dict()
 
+    # calculate missing values with permutation arrays, where all possible combinations have the times (-1) adaptation
     value_missing = False
     for k in range(10, 10000, 10):
         if not get_subset_sum(weights, k, memo):
@@ -79,6 +84,7 @@ def calculate(weight_object):
                 not_found_values.remove(missing)
                 found_values.append(missing)
 
+    # print all calculated values
     wanted_weight = 10
     while wanted_weight <= 10000:
         if wanted_weight in missing_dict:

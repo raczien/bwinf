@@ -4,6 +4,7 @@ import marktwaage
 from Weights import Weights
 
 
+# reads values from a given text file in the current directory and returns these values
 def fill_variables(name):
     n = None
     w = []
@@ -23,6 +24,7 @@ def fill_variables(name):
         print("Could not find File.")
 
 
+# saves variables from the text file to a "Weights" class and starts the calculation
 def start(filename):
     start_time = time.time()
     print("File: ", filename)
@@ -42,5 +44,3 @@ def start(filename):
     print("Program took ", time.time() - start_time, " to run.")
 
 
-if __name__ == '__main__':
-    start("gewichtsstuecke0.txt")
