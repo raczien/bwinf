@@ -11,6 +11,35 @@ def get_subset_sum(w, s, m):
     return subset
 
 
+# if value 40 cant be calculated, find 100- 60
+def find_missing_number_with_subtraction(num_arr, pair_sum, memo, weights):
+    num_arr.sort(reverse=True)
+    for i in range(len(num_arr) - 1):
+        for j in range(i + 1, len(num_arr)):
+            if num_arr[i] - num_arr[j] == pair_sum:
+                array1 = get_subset_sum(weights, num_arr[i], memo)
+                array2 = get_subset_sum(weights, num_arr[j], memo)
+                joined_arrays = array1 + array2
+                joined_arrays.sort()
+                #print(num_arr[i], ": ", array1, ", ", num_arr[j], ": ", array2)
+                #print(joined_arrays)
+                is_valid = True
+                for element in set(joined_arrays):
+                    if joined_arrays.count(element) > weights.count(element):
+                        is_valid = False
+                        break
+                    #else:
+                    #    print("number: ", element, " works.")
+                if is_valid:
+                    array2 = [-x for x in array2]
+                    valid_array = array1 + array2
+                    valid_array.sort()
+                    print("VALID Array: ", valid_array)
+                    return valid_array
+                #return num_arr[i], num_arr[j]
+
+
+
 # calculates all possible calculations (permutations) from an array and saves all distinct calculations to a dictionary
 def calculate_sub_sums(weights, index, sum, memo):
     if index >= len(weights):
@@ -47,7 +76,7 @@ def calculate(weight_object):
     memo = dict()
     not_found_values = []
     found_values = []
-    while wanted <= 10000:
+    while wanted <= const.end_value:
         if calculate_sub_sums(weight_object.all_weights, 0, wanted, memo) == 0:
             not_found_values.append(wanted)
         wanted += 10
@@ -56,7 +85,7 @@ def calculate(weight_object):
 
     # calculate missing values with permutation arrays, where all possible combinations have the times (-1) adaptation
     value_missing = False
-    for k in range(10, 10000, 10):
+    for k in range(10, const.end_value+1, 10):
         if not get_subset_sum(weights, k, memo):
             value_missing = True
         else:
@@ -86,7 +115,7 @@ def calculate(weight_object):
 
     # print all calculated values
     wanted_weight = 10
-    while wanted_weight <= 10000:
+    while wanted_weight <= const.end_value:
         if wanted_weight in missing_dict:
             print(wanted_weight, get_blanks_for_pretty_print(wanted_weight), missing_dict[wanted_weight])
         elif not get_subset_sum(weights, wanted_weight, memo):
@@ -95,3 +124,6 @@ def calculate(weight_object):
             print(wanted_weight, get_blanks_for_pretty_print(wanted_weight), get_subset_sum(weights, wanted_weight, memo))
         wanted_weight += 10
 
+    #val1, val2 =
+    print(find_missing_number_with_subtraction(found_values, 90, memo, weights))
+    #print(val1, val2)
