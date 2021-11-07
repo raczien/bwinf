@@ -39,6 +39,8 @@ class GUI:
         with redirect_stdout(self.console):
             print("Bitte links ein Textdokument auswählen.")
             print("Negative Zahlen müssen auf die Linke Seite zu dem zu errechnenden Gewicht gepackt werden, positive auf die andere.")
+            print("Berechnungszeit:\nDokument 0: ~6 Sek\nDokument 1: ~0.03 Sek\nDokument 2: ~0.03 Sek"
+                  "\nDokument 3: ~7 Sek\nDokument 4: ~1 Sek\nDokument 5: ~300 Sekunden")
 
         self.root.mainloop()
 

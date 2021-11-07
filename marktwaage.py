@@ -20,7 +20,8 @@ def find_missing_number_with_subtraction(found_weights, pair_sum, memo, weights,
     for i in range(len(found_weights) - 1):
         for j in range(i + 1, len(found_weights)):
             if found_weights[i] - found_weights[j] == pair_sum:
-                #print("Pair: ", found_weights[i], found_weights[j])
+
+                # values calculated from this function are not saved in the initial dictionary (two dictionaries)
                 if found_weights[i] in missing_dict:
                     array1 = missing_dict[found_weights[i]]
                 else:
@@ -44,13 +45,15 @@ def find_missing_number_with_subtraction(found_weights, pair_sum, memo, weights,
                     valid_array = array1 + array2
                     valid_array.sort()
                     valid_array_copy = valid_array.copy()
-                    for index, x in enumerate(valid_array_copy):
+                    for x in valid_array_copy:
                         if x < 0:
                             if -x in valid_array:
                                 valid_array.remove(-x)
                                 valid_array.remove(x)
                     if valid_array not in valid_arrays:
                         valid_arrays.append(valid_array)
+
+    # to get the best solution, only the shortest array will be returned
     shortest_valid = min(valid_arrays, key=len, default=[])
     return shortest_valid
 
@@ -126,5 +129,3 @@ def calculate(weight_object):
             else:
                 print(wanted_weight, get_blanks_for_pretty_print(wanted_weight), get_subset_sum(weights, wanted_weight, memo))
             wanted_weight += 10
-
-# 310s für 5
