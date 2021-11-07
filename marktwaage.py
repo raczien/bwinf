@@ -81,7 +81,7 @@ def get_blanks_for_pretty_print(num):
 
 # returns the closest value given in a dictionary compared to a given number
 def closest_number(lst, num):
-    return lst[min(range(len(lst)), key=lambda i: abs(lst[i]-num), default=[0])]
+    return lst[min(range(len(lst)), key=lambda i: abs(lst[i]-num))]
 
 
 # dynamic algorithm for the "Subset Sum - Problem"
@@ -113,14 +113,18 @@ def calculate(weight_object):
             calculated_values.append(v)
 
     # print all calculated values
-    wanted_weight = 10
-    while wanted_weight <= const.end_value:
-        if wanted_weight in not_found_values:
-            print(wanted_weight, get_blanks_for_pretty_print(wanted_weight), "No value found. Closest value: ", closest_number(found_values, wanted_weight))
-        elif wanted_weight in missing_dict:
-            print(wanted_weight, get_blanks_for_pretty_print(wanted_weight), missing_dict[wanted_weight])
-        else:
-            print(wanted_weight, get_blanks_for_pretty_print(wanted_weight), get_subset_sum(weights, wanted_weight, memo))
-        wanted_weight += 10
-
     print("Amount of not found values: ", len(not_found_values))
+    if not found_values:
+        print("No values can be calculated.")
+    else:
+        wanted_weight = 10
+        while wanted_weight <= const.end_value:
+            if wanted_weight in not_found_values:
+                print(wanted_weight, get_blanks_for_pretty_print(wanted_weight), "No value found. Closest value: ", closest_number(found_values, wanted_weight))
+            elif wanted_weight in missing_dict:
+                print(wanted_weight, get_blanks_for_pretty_print(wanted_weight), missing_dict[wanted_weight])
+            else:
+                print(wanted_weight, get_blanks_for_pretty_print(wanted_weight), get_subset_sum(weights, wanted_weight, memo))
+            wanted_weight += 10
+
+# 310s für 5
